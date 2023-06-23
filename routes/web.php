@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TaskController; // Ditambahkan
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home'); // Diperbaharui
-});
+})->name('home'); // name ditambahkan
+
+// Menambahkan Route prefix
+
+Route::prefix('tasks')
+    ->name('tasks.')
+    ->controller(TaskController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('{id}/edit', 'edit')->name('edit');
+    });
